@@ -1,0 +1,39 @@
+{
+  "name": "express-mesto",
+  "version": "1.0.0",
+  "description": "`/public` — статика, полученная в результате билда фронтенд-приложения на Реакте  \r `/data` — JSON-файлы для временной эмуляции работы с базой данных  \r `/routes` — папка с файлами роутера",
+  "main": "/app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon node app.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "allow": [
+      "foo_",
+      "_bar"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slava65/express-mesto.git"
+  },
+  "author": "Slava",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Slava65/express-mesto/issues"
+  },
+  "homepage": "/",
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
