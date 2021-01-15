@@ -26,15 +26,11 @@ userRouter.get('/:id', (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 
-
 userRouter.post('/', (req, res) => {
-  console.log(req.body);
-  res.send(req.body);
-  //const { name, about, avatar } = req.body;
- // console.log({ name, about, avatar });
-  // User.create({ name, about, avatar})
-  //   .then(user => res.send({ data: user }))
-  //   .catch(err => res.status(500).send({ message: 'Произошла ошибка' }));
+  const { name, about, avatar } = req.body;
+  User.create({ name, about, avatar})
+    .then(user => res.send({ data: user }))
+    .catch(err => res.status(500).send({ message: 'Произошла ошибка' }));
 });
 
 module.exports = userRouter;
