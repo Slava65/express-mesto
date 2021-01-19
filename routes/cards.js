@@ -1,29 +1,21 @@
 const cardRouter = require('express').Router();
-const path = require('path');
-const readJson = require('../utiles/readJson');
 
-cardRouter.get('/', (req, res) => {
-  readJson(path.join(__dirname, '..', 'data', 'cards.json'))
-    .then((users) => {
-      res.send(users);
-    })
-    .catch((err) => {
-      res.status(500).send({ err });
-    });
-});
+const {
+  getCards,
+  postCard,
+  deleteCard,
+  likeCard,
+  dislikeCard,
+} = require('../controllers/cards');
 
-cardRouter.post('/', (req, res) => {
-  const { name, link } = req.body;
-  Card.create({ name, link})
-    .then(card => res.send({ data: card }))
-    .catch(err => res.status(500).send({ message: 'Произошла ошибка' }));
-});
+cardRouter.get('/', getCards);
 
-cardRouter.delete('/:cardId', (req, res) => {
-  const { id } = req.params;
-  Card.findByIdAndRemove({ id })
-    .then(card => res.send({ data: card }))
-    .catch(err => res.status(500).send({ message: 'Произошла ошибка' }));
-});
+cardRouter.post('/', postCard);
+
+cardRouter.delete('/:cardId', deleteCard);
+
+cardRouter.put('/:cardId/likes', likeCard);
+
+cardRouter.delete('/:cardId/likes', dislikeCard);
 
 module.exports = cardRouter;

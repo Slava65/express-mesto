@@ -10,28 +10,30 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
-  //   validate: {
-  //     validator(v) {
-  //         const regex = /^https?:\/\/w{0,3}\.?[a-z0-9-._~:/?#[]@!$&'()*+,;=]+\.[a-z0-9-._~:/?#[]@!$&'()*+,;=]+#?$/;
-  //         return  regex.test(v)
-  //     },
-  //     message: 'URL введен неверно',
-  // }
+    validate: {
+      validator(v) {
+        const regex = /^(https?\:\/\/)(www\.)?[a-z0-9\-._~:/?#[\]@!$&'()*+,;=]+\.[a-z]{2,6}([a-z0-9\-._~:/?#[\]@!$&'()*+,;=]+)?(#?)$/;
+        return regex.test(v);
+      },
+      message: 'URL введен неверно',
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    required: true
+    required: true,
   },
-  likes: {
-    type: mongoose.Schema.Types.ObjectId,
-    default: [],
-  },
+  likes: [
+    {
+      type: String,
+      ref: 'user',
+      default: [],
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
-
-  }
+  },
 });
 
 module.exports = mongoose.model('card', cardSchema);
