@@ -8,13 +8,14 @@ const getUsers = (req, res) => {
 
 const getUser = (req, res) => {
   User.findById(req.params.id)
-    .then((user) => res.send({ data: user }))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        res.status(404).send({ message: 'Пользователь не найден' });
-      } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
+    .then((user) => {
+      if (user) {
+        res.send({ data: user });
       }
+      res.status(404).send({ message: 'Пользователь не найден' });
+    })
+    .catch(() => {
+      res.status(500).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -42,7 +43,8 @@ const updateUser = (req, res) => {
   )
     .then((user) => res.send({ data: user }))
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      console.log(err.name);
+      if (err.name === 'ValidationError' || err.name === 'CastError') {
         res.status(400).send({
           message:
             'Переданы некорректные данные в метод обновления пользователя',
