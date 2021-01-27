@@ -10,12 +10,17 @@ const getUser = (req, res) => {
   User.findById(req.params.id)
     .then((user) => {
       if (user) {
-        res.send({ data: user });
+        return res.send({ data: user });
       }
-      res.status(404).send({ message: 'Пользователь не найден' });
+      return res.status(404).send({ message: 'Пользователь не найден' });
     })
-    .catch(() => {
-      res.status(500).send({ message: 'На сервере произошла ошибка' });
+    .catch((err) => {
+      if (err.name === "CastError") {
+        return res.status(400).send({
+          message: "Переданы некорректные данные в метод поиска пользователя",
+        });
+      }
+      return res.status(500).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -25,11 +30,11 @@ const postUser = (req, res) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400).send({
+        return res.status(400).send({
           message: 'Переданы некорректные данные в метод создания пользователя',
         });
       } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
+        return res.status(500).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };
@@ -44,12 +49,12 @@ const updateUser = (req, res) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
-        res.status(400).send({
+        return res.status(400).send({
           message:
             'Переданы некорректные данные в метод обновления пользователя',
         });
       } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
+        return res.status(500).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };
@@ -64,11 +69,11 @@ const updateAvatar = (req, res) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400).send({
+        return res.status(400).send({
           message: 'Переданы некорректные данные в метод обновления аватара',
         });
       } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
+        return res.status(500).send({ message: 'На сервере произошла ошибка' });
       }
     });
 };
