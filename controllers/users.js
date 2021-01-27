@@ -15,9 +15,9 @@ const getUser = (req, res) => {
       return res.status(404).send({ message: 'Пользователь не найден' });
     })
     .catch((err) => {
-      if (err.name === "CastError") {
+      if (err.name === 'CastError') {
         return res.status(400).send({
-          message: "Переданы некорректные данные в метод поиска пользователя",
+          message: 'Переданы некорректные данные в метод поиска пользователя',
         });
       }
       return res.status(500).send({ message: 'На сервере произошла ошибка' });
@@ -33,9 +33,8 @@ const postUser = (req, res) => {
         return res.status(400).send({
           message: 'Переданы некорректные данные в метод создания пользователя',
         });
-      } else {
-        return res.status(500).send({ message: 'На сервере произошла ошибка' });
       }
+      return res.status(500).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -53,9 +52,8 @@ const updateUser = (req, res) => {
           message:
             'Переданы некорректные данные в метод обновления пользователя',
         });
-      } else {
-        return res.status(500).send({ message: 'На сервере произошла ошибка' });
       }
+      return res.status(500).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -72,9 +70,8 @@ const updateAvatar = (req, res) => {
         return res.status(400).send({
           message: 'Переданы некорректные данные в метод обновления аватара',
         });
-      } else {
-        return res.status(500).send({ message: 'На сервере произошла ошибка' });
       }
+      return res.status(500).send({ message: 'На сервере произошла ошибка' });
     });
 };
 

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
         const regex = /^[а-яa-z0-9-: ]{2,30}$/i;
         return regex.test(v);
       },
-      message: "Имя введено неверно",
+      message: 'Имя введено неверно',
     },
   },
   about: {
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
         const regex = /^[а-яa-z0-9-:,;. ]{2,30}$/i;
         return regex.test(v);
       },
-      message: "Информация введена неверно",
+      message: 'Информация введена неверно',
     },
   },
   avatar: {
@@ -35,9 +35,9 @@ const userSchema = new mongoose.Schema({
         const regex = /^(https?:\/\/)(www\.)?[a-z0-9\-._~:/?#[\]@!$&'()*+,;=]+\.[a-z]{2,6}([a-z0-9\-._~:/?#[\]@!$&'()*+,;=]+)?(#?)$/i;
         return regex.test(v);
       },
-      message: "URL введен неверно",
+      message: 'URL введен неверно',
     },
   },
 });
 
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model('user', userSchema);
